@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes App - Organize Your Thoughts</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- AUTHENTICATION SCREEN -->
+  <main id="auth-screen" class="auth-screen">
+    <div class="auth-wrapper">
+      <div class="auth-brand">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h1>Notes App</h1>
+        <p class="brand-tagline">Create, organize, and access unlimited notes securely.</p>
+      </div>
+
+      <!-- Login Card -->
+      <div id="login-card" class="auth-card">
+        <div class="auth-header">
+          <h2>Welcome Back</h2>
+          <p>Please enter your email and password to log in.</p>
+        </div>
+
+        <form id="login-form" class="auth-form" novalidate>
+          <div id="login-alert" class="alert alert-error hidden" role="alert"></div>
+
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <input type="email" id="login-email" placeholder="name@example.com" autocomplete="email" required>
+            </div>
+            <span class="field-error" id="login-email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+            <span class="field-error" id="login-password-error"></span>
+          </div>
+
+          <button type="submit" id="login-btn" class="btn btn-primary btn-block">
+            <span>Log In</span>
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Don't have an account? <button type="button" id="switch-to-register" class="link-btn">Create an account</button></p>
+        </div>
+      </div>
+
+      <!-- Register Card -->
+      <div id="register-card" class="auth-card hidden">
+        <div class="auth-header">
+          <h2>Create Account</h2>
+          <p>Sign up to start writing and saving unlimited notes.</p>
+        </div>
+
+        <form id="register-form" class="auth-form" novalidate>
+          <div id="register-alert" class="alert alert-error hidden" role="alert"></div>
+
+          <div class="form-group">
+            <label for="register-email">Email Address</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <input type="email" id="register-email" placeholder="name@example.com" autocomplete="email" required>
+            </div>
+            <span class="field-error" id="register-email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input type="password" id="register-password" placeholder="At least 6 characters" autocomplete="new-password" required>
+            </div>
+            <span class="field-error" id="register-password-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-confirm-password">Confirm Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input type="password" id="register-confirm-password" placeholder="Re-enter password" autocomplete="new-password" required>
+            </div>
+            <span class="field-error" id="register-confirm-error"></span>
+          </div>
+
+          <button type="submit" id="register-btn" class="btn btn-primary btn-block">
+            <span>Create Account</span>
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Already have an account? <button type="button" id="switch-to-login" class="link-btn">Login</button></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MAIN NOTES APPLICATION INTERFACE -->
+  <div id="notes-screen" class="notes-screen hidden">
+    <!-- Top Navbar -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="app-brand">
+          <svg class="brand-logo" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span class="brand-title">Notes</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="user-badge" id="current-user-email" title="Logged in user">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="user-email-text">user@example.com</span>
+        </div>
+        <button id="logout-btn" class="btn btn-ghost btn-sm" title="Log out of your account">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Two-Column Layout -->
+    <div class="notes-workspace" id="notes-workspace">
+      <!-- LEFT SIDE: Notes List & Search -->
+      <aside class="notes-sidebar" id="notes-sidebar">
+        <div class="sidebar-top">
+          <button id="new-note-btn-sidebar" class="btn btn-primary btn-block new-note-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>New Note</span>
+          </button>
+
+          <!-- Search Notes Input -->
+          <div class="search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-notes-input" placeholder="Search notes by title or content..." autocomplete="off">
+            <button id="clear-search-btn" class="clear-search-btn hidden" title="Clear search" type="button">
+              &times;
+            </button>
+          </div>
+
+          <div class="notes-meta-bar">
+            <span id="notes-counter" class="notes-counter">0 notes</span>
+          </div>
+        </div>
+
+        <!-- Scrollable List of Saved Notes -->
+        <div class="notes-list-scroll" id="notes-list-container">
+          <!-- Populated dynamically via JS -->
+          <div class="empty-list-state" id="empty-list-state">
+            <div class="empty-icon">📝</div>
+            <h3>No notes yet</h3>
+            <p>Click <strong>+ New Note</strong> above to create your first note!</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT SIDE: Note Editor -->
+      <section class="notes-editor-panel" id="notes-editor-panel">
+        <!-- Editor Header / Toolbar -->
+        <div class="editor-toolbar">
+          <div class="toolbar-left">
+            <button id="mobile-back-btn" class="btn btn-ghost btn-icon mobile-only" title="Back to Notes List">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              <span>Notes</span>
+            </button>
+            <div class="editor-status" id="editor-status">
+              <span class="status-indicator-dot"></span>
+              <span id="editor-status-text">Draft</span>
+            </div>
+          </div>
+
+          <div class="toolbar-right">
+            <button id="new-note-btn-editor" class="btn btn-secondary btn-sm" title="Create another new note">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>New</span>
+            </button>
+
+            <button id="delete-note-btn" class="btn btn-danger-outline btn-sm hidden" title="Delete this note">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              <span>Delete</span>
+            </button>
+
+            <button id="save-note-btn" class="btn btn-primary btn-sm" title="Save note (Ctrl + S)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              <span id="save-btn-text">Save Note</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Note Title Input -->
+        <div class="editor-title-container">
+          <input type="text" id="note-title-input" class="note-title-input" placeholder="Note Title..." maxlength="255">
+        </div>
+
+        <!-- Note Editor Metadata / Word Count -->
+        <div class="editor-info-bar">
+          <div class="note-time-info" id="note-time-info">New unsaved note</div>
+          <div class="note-stats" id="note-stats">
+            <span id="word-count">0 words</span>
+            <span class="stat-separator">•</span>
+            <span id="char-count">0 characters</span>
+          </div>
+        </div>
+
+        <!-- Large Note Content Area (Unlimited Length) -->
+        <div class="editor-content-container">
+          <textarea
+            id="note-content-input"
+            class="note-content-input"
+            placeholder="Type your note content here... You can write multiple paragraphs, detailed explanations, code snippets, study guides, or long articles. There is no artificial character limit!"
+            spellcheck="true"
+          ></textarea>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div id="delete-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-warning">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h3 id="delete-modal-title">Delete Note</h3>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this note?</p>
+        <p class="modal-subtext">This action cannot be undone. The note will be permanently removed from your account.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel-delete-btn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="confirm-delete-btn" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
